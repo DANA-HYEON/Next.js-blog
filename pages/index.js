@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getSortedPostsData } from "../lib/posts";
 import Layout from "./components/layout";
 import utilStyles from "../styles/utils.module.css";
+import Date from "./components/date";
 
 // for ssg
 export async function getStaticProps() {
@@ -26,38 +27,20 @@ export default function Home({ allPostsData }) {
 				</Head>
 
 				<main>
-					<h1 className={styles.title}>
-						Learn <Link href="/posts/first-post">Next.js!</Link>
-					</h1>
-
-					<p className={styles.description}>
-						Get started by editing <code>pages/index.js</code>
-					</p>
-
-					<div className={styles.grid}>
-						<a href="https://nextjs.org/docs" className={styles.card}>
-							<h3>Documentation &rarr;</h3>
-							<p>Find in-depth information about Next.js features and API.</p>
-						</a>
-
-						<a href="https://nextjs.org/learn" className={styles.card}>
-							<h3>Learn &rarr;</h3>
-							<p>Learn about Next.js in an interactive course with quizzes!</p>
-						</a>
-
-						<a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-							<h3>Examples &rarr;</h3>
-							<p>Discover and deploy boilerplate example Next.js projects.</p>
-						</a>
-
-						<a
-							href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-							className={styles.card}
-						>
-							<h3>Deploy &rarr;</h3>
-							<p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-						</a>
-					</div>
+					<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+						<h2 className={utilStyles.headingLg}>Blog</h2>
+						<ul className={utilStyles.list}>
+							{allPostsData.map(({ id, date, title }) => (
+								<li className={utilStyles.listItem} key={id}>
+									<Link href={`/posts/${id}`}>{title}</Link>
+									<br />
+									<small className={utilStyles.lightText}>
+										<Date dateString={date} />
+									</small>
+								</li>
+							))}
+						</ul>
+					</section>
 				</main>
 
 				<footer>
@@ -118,21 +101,6 @@ export default function Home({ allPostsData }) {
 					}
 				`}</style>
 			</div>
-			{/* Add this <section> tag below the existing <section> tag */}
-			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-				<h2 className={utilStyles.headingLg}>Blog</h2>
-				<ul className={utilStyles.list}>
-					{allPostsData.map(({ id, date, title }) => (
-						<li className={utilStyles.listItem} key={id}>
-							{title}
-							<br />
-							{id}
-							<br />
-							{date}
-						</li>
-					))}
-				</ul>
-			</section>
 		</Layout>
 	);
 }
