@@ -4,7 +4,6 @@ import Link from "next/link";
 import { getSortedPostsData } from "../lib/posts";
 import Layout from "./components/layout";
 import utilStyles from "../styles/utils.module.css";
-// import Date from "./components/date";
 
 // for ssg
 export async function getStaticProps() {
@@ -33,8 +32,6 @@ export default function Home({ allPostsData }) {
 							{allPostsData.map(({ id, date, title }) => (
 								<li className={utilStyles.listItem} key={id}>
 									<Link href={`/posts/${id}`}>{title}</Link>
-									<br />
-									<small className={utilStyles.lightText}>{/* <Date dateString={date} /> */}</small>
 								</li>
 							))}
 						</ul>
